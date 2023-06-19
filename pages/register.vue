@@ -25,7 +25,7 @@ import {
 } from 'firebase/auth';
 import { useRouter } from 'vue-router';
 const { login, user } = useUserState();
-console.log(user.value); //ここで表示されないのでapp.vue
+console.log(user.value, 'register'); //ここで表示されないのでapp.vue
 // でlogin関数を扱い。グローバルにstateを渡せるようにする必要がある
 const email = ref();
 const password = ref();

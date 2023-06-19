@@ -2,15 +2,15 @@
 import { collection, addDoc, onSnapshot } from 'firebase/firestore';
 import { db } from '../src/plugins/firebase';
 import { ref } from 'vue';
-import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
+import { getAuth, signOut } from 'firebase/auth';
 import { useRouter } from 'vue-router';
 
-const { login, user } = useUserState();
+const { user } = useUserState();
 const posts = ref();
 const inputtingCompany = ref();
 const inputtingOccupation = ref();
 const inputtingThoughts = ref();
-
+const router = useRouter();
 type Post = {
   // userId: string;
   // username: string;
@@ -22,6 +22,8 @@ type Post = {
 
 let auth: any;
 onMounted(() => {
+  auth = getAuth();
+  console.log(auth, 'post.vue auth');
   console.log(user.value, 'post.vue');
 
   // マウントした時にpushで配列に入れて展開
@@ -39,10 +41,12 @@ onMounted(() => {
     });
   });
 });
-const router = useRouter();
+
 const handleSignOut = () => {
   signOut(auth).then(() => {
-    router.push('/auth');
+    console.log('logout');
+
+    router.push('/');
   });
 };
 const addFirebase = (
