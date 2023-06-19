@@ -1,17 +1,19 @@
 <template>
-  <h1>Create Count</h1>
-  <p><input type="text" placeholder="email" v-model="email" /></p>
-  <p><input type="password" placeholder="password" v-model="password" /></p>
+  <div class="border border-gray-300 w-72 p-3 my-6">
+    <h1 class="font-bold text-lg">新規登録</h1>
+    <p><input type="text" placeholder="email" v-model="email" /></p>
+    <p><input type="password" placeholder="password" v-model="password" /></p>
 
-  <p><button @click="register">Submit</button></p>
-  <!-- <p>
-    <button
+    <p><button @click="register">Submit</button></p>
+    <!-- <p>
+      <button
       class="bg-slate-400/100 w-64 rounded-md text-white p-1 my-5"
       @click="signInWithGoogle"
-    >
+      >
       Sign In With Google
     </button>
   </p> -->
+  </div>
 </template>
 <script setup>
 import { ref } from 'vue';

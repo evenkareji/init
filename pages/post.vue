@@ -19,28 +19,11 @@ type Post = {
   desc: string;
   // timestamp: string;
 };
-const isLoggedIn = ref(false);
 
 let auth: any;
 onMounted(() => {
-  auth = getAuth();
-  onAuthStateChanged(auth, (authUser) => {
-    if (authUser) {
-      isLoggedIn.value = true;
+  console.log(user.value, 'post.vue');
 
-      const loginUser: any = {
-        uid: authUser.uid,
-        displayName: authUser.displayName,
-      };
-      console.log(user.value, 'before');
-
-      login(loginUser);
-      console.log(user.value, 'after');
-    } else {
-      isLoggedIn.value = false;
-      router.push('/signIn');
-    }
-  });
   // マウントした時にpushで配列に入れて展開
   onSnapshot(collection(db, 'users'), (querySnapshot) => {
     posts.value = [];
@@ -59,7 +42,7 @@ onMounted(() => {
 const router = useRouter();
 const handleSignOut = () => {
   signOut(auth).then(() => {
-    router.push('/');
+    router.push('/auth');
   });
 };
 const addFirebase = (
@@ -87,7 +70,6 @@ const addFirebase = (
     <button
       class="bg-slate-400/100 w-64 rounded-md text-white p-1 my-5"
       @click="handleSignOut"
-      v-if="isLoggedIn"
     >
       sign out
     </button>

@@ -1,17 +1,19 @@
 <template>
-  <h1>Create Count</h1>
-  <p><input type="text" placeholder="email" v-model="email" /></p>
-  <p><input type="password" placeholder="password" v-model="password" /></p>
-  <p class="err" v-if="errMsg">{{ errMsg }}</p>
-  <p><button @click="authin">Submit</button></p>
-  <p>
-    <button
-      class="bg-slate-400/100 w-64 rounded-md text-white p-1 my-5"
-      @click="signInWithGoogle"
-    >
-      Sign In With Google
-    </button>
-  </p>
+  <div class="border border-gray-300 w-72 p-3">
+    <h1 class="text-lg font-bold">ログイン</h1>
+    <p><input type="text" placeholder="email" v-model="email" /></p>
+    <p><input type="password" placeholder="password" v-model="password" /></p>
+    <p class="err" v-if="errMsg">{{ errMsg }}</p>
+    <p><button @click="authin">Submit</button></p>
+    <p>
+      <button
+        class="bg-slate-400/100 w-64 rounded-md text-white p-1 my-5"
+        @click="signInWithGoogle"
+      >
+        Sign In With Google
+      </button>
+    </p>
+  </div>
 </template>
 <script setup>
 import { ref } from 'vue';
@@ -32,7 +34,7 @@ const signInWithGoogle = () => {
   const provider = new GoogleAuthProvider();
   signInWithPopup(getAuth(), provider)
     .then((result) => {
-      router.push('/post');
+      // router.push('/post');
     })
     .catch((error) => {});
 };

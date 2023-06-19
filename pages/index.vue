@@ -1,25 +1,34 @@
-<script setup>
-// let { user } = useUserState();
+<script setup lang="ts">
+const { login, user } = useUserState();
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import Auth from './auth.vue';
+import Post from './post.vue';
 
-// console.log(user.value.displayName);
+let auth: any;
+
+onMounted(() => {
+  auth = getAuth();
+  onAuthStateChanged(auth, (authUser) => {
+    console.log(authUser, 'auth');
+
+    if (authUser) {
+      const loginUser: any = {
+        uid: authUser.uid,
+        displayName: authUser.displayName,
+      };
+      console.log(user.value, 'before');
+
+      login(loginUser);
+      console.log(user.value, 'after');
+    }
+  });
+});
 </script>
 <template>
-  <h1 class="text-red-400 text-xl">TypeScriptを用いたfirebase開発</h1>
-
-  <section class="mt-10">
-    <span class="px-3">
-      <NuxtLink to="/profile">profile</NuxtLink>
-    </span>
-    <span class="px-3">
-      <NuxtLink to="/register">register</NuxtLink>
-    </span>
-    <span class="px-3">
-      <NuxtLink to="/signIn">signIn</NuxtLink>
-    </span>
-    <span class="px-3">
-      <NuxtLink to="/post">Post</NuxtLink>
-    </span>
-  </section>
-  <!-- {{ user.uid }}
-  {{ user.displayName }} -->
+  <div v-if="user">
+    <Post />
+  </div>
+  <div v-else>
+    <Auth />
+  </div>
 </template>
